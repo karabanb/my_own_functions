@@ -2,7 +2,7 @@
 library(tidyverse)
 load("./data/raw_data.Rdata")
 
-x <- raw_data[raw_data$RodzajScore=="PierwszaZewn",]
+x <- raw_data[raw_data$RodzajScore=="PierwszaZewn",] #spr commita
 
 
 
