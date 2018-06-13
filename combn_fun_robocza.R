@@ -14,7 +14,6 @@ intervals <- c(1, 7, 14, 30)
 
 
 tmp <- list()
-tmp2 <- list()
 comb_cols <- list()
 
 ## generating all possible combinations of event's names
@@ -32,7 +31,10 @@ for (i in 1:length(cols)) {
 
 tmp <- unlist(unlist(tmp))
 
+
 ## generating all possible combinations of columns
+
+tmp2 <- list()
 
 k <-1
 
@@ -69,12 +71,14 @@ tmp <- c(cols, tmp)
 
 for (i in tmp) {
   for (j in interval_lenght)
-    count_interval <- 'sum(x[,event_date] >  x[, j])'
+    count_interval <- paste0('sum(x[,event_date] > x[, ',j,'])')
+   # count_interval <- paste0('sum(x[,event_date] > x[, ',j,'])')
     count_name <- paste(i, j, sep = "_")
- z <- head(x) %>% 
-   group_by_(id, i) %>%  
+    z <- head(x) %>% 
+      group_by_(id, i) %>% 
+ 
    summarise_(
-               .dots = setNames(count_interval, count_interval) # tu sie sypie
+               .dots = setNames(count_interval, count_name) # tu sie sypie
              )
   print(z)
 }
@@ -83,6 +87,7 @@ for (i in tmp) {
 tmp3 <- expand.grid(tmp, interval_lenght)
 tmp4 <- paste(tmp3$Var1, tmp3$Var2, sep = "_")
 
-count_interval <- paste0('sum(', event_date > interval_lenght[j], ')')
+#count_interval <- paste0('sum(', event_date > interval_lenght[j], ')')
+count_interval <- paste0('sum(x[,event_date] > x[, ',j,'])')
 
 sum(x[,event_date] >  x[, "D1"])
