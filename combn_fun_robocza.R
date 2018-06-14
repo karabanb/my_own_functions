@@ -2,15 +2,14 @@
 library(tidyverse)
 load("./data/raw_data.Rdata")
 
-x <- raw_data[raw_data$RodzajScore=="PierwszaZewn",] #spr commita
-
+x <- raw_data[raw_data$RodzajScore=="PierwszaZewn",]
 
 
 data0 <- "Data0"
 event_date <- "evv_EventDate"
 cols <- c("evt_Code", "evs_Code", "evi_Code", "evr_Code")
 id <- "cli_ID"
-intervals <- c(1, 7, 14, 30)
+intervals <- c(1, 7, 14, 30, 60, 90, 180, 360)
 
 
 tmp <- list()
@@ -70,24 +69,13 @@ for (i in seq_along(intervals)) {
 tmp <- c(cols, tmp)
 
 for (i in tmp) {
-  for (j in interval_lenght)
-    count_interval <- paste0('sum(x[,event_date] > x[, ',j,'])')
-   # count_interval <- paste0('sum(x[,event_date] > x[, ',j,'])')
-    count_name <- paste(i, j, sep = "_")
-    z <- head(x) %>% 
-      group_by_(id, i) %>% 
- 
-   summarise_(
-               .dots = setNames(count_interval, count_name) # tu sie sypie
-             )
-  print(z)
+    for (j in interval_lenght){
+        count_interval <- 'sum(event_date > j)'
+        count_name <- paste(i, j, sep = "_")
+        z <- x %>% 
+            group_by_(id, i) %>% 
+            summarise_(.dots = setNames(count_interval, count_name))
+        print(z)
+    }
 }
 
-
-tmp3 <- expand.grid(tmp, interval_lenght)
-tmp4 <- paste(tmp3$Var1, tmp3$Var2, sep = "_")
-
-#count_interval <- paste0('sum(', event_date > interval_lenght[j], ')')
-count_interval <- paste0('sum(x[,event_date] > x[, ',j,'])')
-
-sum(x[,event_date] >  x[, "D1"])
