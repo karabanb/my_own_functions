@@ -9,7 +9,7 @@ data0 <- "Data0"
 event_date <- "evv_EventDate"
 cols <- c("evt_Code", "evs_Code", "evi_Code", "evr_Code")
 id <- "cli_ID"
-intervals <- c(1, 7, 14, 30, 60, 90, 180, 360)
+intervals <- c(1, 7,180, 360)
 
 
 tmp <- list()
@@ -67,15 +67,19 @@ for (i in seq_along(intervals)) {
 }
 
 tmp <- c(cols, tmp)
+k <- 1
 
-for (i in tmp) {
+for (i in tmp[1:2]) {
+  z <- list(data.frame())
     for (j in interval_lenght){
         count_interval <- 'sum(event_date > j)'
         count_name <- paste(i, j, sep = "_")
-        z <- x %>% 
-            group_by_(id, i) %>% 
-            summarise_(.dots = setNames(count_interval, count_name))
-        print(z)
+         a <- x %>% 
+              group_by_(id, i) %>% 
+              summarise_(.dots = setNames(count_interval, count_name))
+         b <- cbind()
+        print('---------')
     }
+  print('---')
 }
 
