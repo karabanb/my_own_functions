@@ -66,20 +66,28 @@ for (i in seq_along(intervals)) {
   colnames(x)[colnames(x)=="interval_start"] <- interval_lenght[i]
 }
 
-tmp <- c(cols, tmp)
-k <- 1
 
-for (i in tmp[1:2]) {
-  z <- list(data.frame())
-    for (j in interval_lenght){
-        count_interval <- 'sum(event_date > j)'
-        count_name <- paste(i, j, sep = "_")
-         a <- x %>% 
-              group_by_(id, i) %>% 
-              summarise_(.dots = setNames(count_interval, count_name))
-         b <- cbind()
-        print('---------')
-    }
+
+tmp <- c(cols, tmp)
+z <- data.frame()
+df <- data.frame()
+
+for (i in tmp) {
+ df<- x %>% 
+    group_by_(id, i) %>%
+    summarise(N = n())
+ 
+      for (j in interval_lenght){
+          count_interval <- 'sum(event_date > j)'
+          count_name <- paste(i, j, sep = "_")
+          z <- x %>% 
+                group_by_(id, i) %>% 
+                summarise_(.dots = setNames(count_interval, count_name)) 
+          df <- left_join(df, z)
+          print('---------')
+      }
+  print(df)
   print('---')
 }
+
 
