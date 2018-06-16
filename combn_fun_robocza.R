@@ -30,7 +30,6 @@ for (i in 1:length(cols)) {
 
 tmp <- unlist(unlist(tmp))
 
-
 ## generating all possible combinations of columns
 
 tmp2 <- list()
@@ -66,17 +65,18 @@ for (i in seq_along(intervals)) {
   colnames(x)[colnames(x)=="interval_start"] <- interval_lenght[i]
 }
 
-
+## counting each combination of events for each interval for each id
 
 tmp <- c(cols, tmp)
 z <- data.frame()
 df <- data.frame()
 
 for (i in tmp) {
- df<- x %>% 
+  count_name <- paste(i, "Max", sep = "_")
+  count_interval <- 'n()'
+  df<- x %>% 
     group_by_(id, i) %>%
-    summarise(N = n())
- 
+    summarise_(.dots = setNames(count_interval, count_name))
       for (j in interval_lenght){
           count_interval <- 'sum(event_date > j)'
           count_name <- paste(i, j, sep = "_")
