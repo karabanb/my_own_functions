@@ -15,7 +15,7 @@ intervals <- c(1, 7,180, 360)
 tmp <- list()
 comb_cols <- list()
 
-## generating all possible combinations of event's names
+#### generating all possible combinations of event's names ####
 
 for (i in 1:length(cols)) {
   if (i == length(cols))  ## zakombinaować coś z while
@@ -30,7 +30,7 @@ for (i in 1:length(cols)) {
 
 tmp <- unlist(unlist(tmp))
 
-## generating all possible combinations of columns
+#### generating all possible combinations of columns ####
 
 tmp2 <- list()
 
@@ -43,18 +43,18 @@ for (i in 1:length(comb_cols)){
   }
 }
 
-## merging and renaming combinations of columns
+#### merging and renaming combinations of columns ####
 
 for (i in 1:length(tmp)){
   x <- tidyr::unite(x, tmp[i], tmp2[[i]], remove = FALSE)
   names(x)[names(x) == 'tmp[i]'] <- tmp[i]
 }
 
-## roundind date
+#### roundind date ####
 
 x$Data0_floor <- lubridate::floor_date(x[, data0], unit = "day")
 
-## creating interval's start date for each interval 
+#### creating interval's start date for each interval ####
 
 interval_lenght <- c()
 
@@ -65,29 +65,46 @@ for (i in seq_along(intervals)) {
   colnames(x)[colnames(x)=="interval_start"] <- interval_lenght[i]
 }
 
-## counting each combination of events for each interval for each id
+### creating function for keeping columns with non unique values ####
+
+keep_unique <- function(x){
+  tmp <- sapply(x, function(x){length(unique(x))>1})
+  names(tmp[tmp==TRUE])
+}
+
+
+### counting each combination of events for each interval for each id ####
 
 tmp <- c(cols, tmp)
 z <- data.frame()
 df <- data.frame()
+all <- list()
 
 for (i in tmp) {
-  count_name <- paste(i, "Max", sep = "_")
+  count_name <- "N"
   count_interval <- 'n()'
   df<- x %>% 
     group_by_(id, i) %>%
     summarise_(.dots = setNames(count_interval, count_name))
       for (j in interval_lenght){
           count_interval <- 'sum(event_date > j)'
-          count_name <- paste(i, j, sep = "_")
-          z <- x %>% 
-                group_by_(id, i) %>% 
-                summarise_(.dots = setNames(count_interval, count_name)) 
-          df <- left_join(df, z)
-          print('---------')
+          renaming <- 'paste(.[, i], j, sep = "_")'
+          z <- x %>%
+                mutate_(.dots = set_names(renaming, i)) %>%
+                group_by_(id, i) %>%
+                summarise_(.dots = setNames(count_interval, count_name))
+          df <- union(df, z)
       }
-  print(df)
-  print('---')
+ # unq <- keep_unique(df)
+  all[[i]] <- df#[,unq]
 }
+
+
+for (i in all){
+  spread(i, key = )
+}
+c <- spread(all$evs_Code,key = evs_Code, value = N)
+
+head(paste(x$evt_Code_evs_Code, "D7"))
 
 
