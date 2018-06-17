@@ -99,12 +99,10 @@ for (i in tmp) {
   all[[i]] <- df#[,unq]
 }
 
-
 for (i in all){
-  spread(i, key = )
+  tmp <- as.data.frame(i)
+  tmp <- spread(tmp, key = names(tmp)[2], value = names(tmp)[3])
+  tmp[is.na(tmp)] <- 0
 }
-c <- spread(all$evs_Code,key = evs_Code, value = N)
-
-head(paste(x$evt_Code_evs_Code, "D7"))
 
 
