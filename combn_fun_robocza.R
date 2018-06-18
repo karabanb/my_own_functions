@@ -99,14 +99,20 @@ for (i in tmp) {
   all[[i]] <- df#[,unq]
 }
 
+<<<<<<< HEAD
 k <- 1
 
+=======
+>>>>>>> 650b6051dbb49f74c66866c43d2d895f72574351
 for (i in all){
   tmp <- as.data.frame(i)
   tmp <- spread(tmp, key = names(tmp)[2], value = names(tmp)[3])
   tmp[is.na(tmp)] <- 0
+<<<<<<< HEAD
   all[[k]] <- tmp
   k <- k+1
+=======
+>>>>>>> 650b6051dbb49f74c66866c43d2d895f72574351
 }
 
 
