@@ -1,20 +1,20 @@
 
-# library(tidyverse)
-# load("./data/raw_data.Rdata")
-# 
-# x <- raw_data[raw_data$RodzajScore=="PierwszaZewn",]
-# 
-# 
-# date0 <- "Data0"
-# event_date <- "evv_EventDate"
-# event_cols <- c("evt_Code", "evs_Code", "evi_Code", "evr_Code")
-# id <- "cli_ID"
-# intervals <- c(1, 7,180, 360)
+library(tidyverse)
+load("./data/raw_data.Rdata")
+
+x <- raw_data[raw_data$RodzajScore=="PierwszaZewn",]
+
+
+date0 <- "Data0"
+event_date <- "evv_EventDate"
+event_cols <- c("evt_Code", "evs_Code", "evi_Code", "evr_Code")
+id <- "cli_ID"
+intervals <- c(1, 7,180, 360)
 
 
 
 
-count_events <- function(x, id, event_cols, date0, event_date, intervals = c(30, 60, 90, 180)){
+#count_events <- function(x, id, event_cols, date0, event_date, intervals = c(30, 60, 90, 180)){
 
 require(tidyverse)
   
@@ -110,4 +110,4 @@ names(df)[names(df)=="id"] <- id
 
 return(df)
 
-}
+#}
