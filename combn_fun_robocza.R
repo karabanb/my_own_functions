@@ -109,6 +109,7 @@ names(df)[names(df)=="id"] <- id
 
 funs <- c("max", "min")
 
+<<<<<<< HEAD
 for (i in comb_cols_names){
   for (j in funs){
     renaming <- 'paste(.[, i], j, sep = "_")'
@@ -126,4 +127,6 @@ for (i in comb_cols_names){
 
 return(df)
 
+=======
+>>>>>>> 5251c899d0538247d8e93c96fe71b37d1ac1ef9b
 #}
