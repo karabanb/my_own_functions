@@ -1,20 +1,17 @@
 
-library(tidyverse)
-load("./data/raw_data.Rdata")
+# library(tidyverse)
+# load("./data/raw_data.Rdata")
+# 
+# x <- raw_data[raw_data$RodzajScore=="PierwszaZewn",]
+# 
+# 
+# date0 <- "Data0"
+# event_date <- "evv_EventDate"
+# event_cols <- c("evt_Code", "evs_Code", "evi_Code", "evr_Code")
+# id <- "cli_ID"
+# intervals <- c(1, 7,180, 360)
 
-x <- raw_data[raw_data$RodzajScore=="PierwszaZewn",]
-
-
-date0 <- "Data0"
-event_date <- "evv_EventDate"
-event_cols <- c("evt_Code", "evs_Code", "evi_Code", "evr_Code")
-id <- "cli_ID"
-intervals <- c(1, 7,180, 360)
-
-
-
-
-#count_events <- function(x, id, event_cols, date0, event_date, intervals = c(30, 60, 90, 180)){
+count_events <- function(x, id, event_cols, date0, event_date, intervals = c(30, 60, 90, 180)){
 
 require(tidyverse)
   
@@ -109,7 +106,6 @@ names(df)[names(df)=="id"] <- id
 
 funs <- c("max", "min")
 
-<<<<<<< HEAD
 for (i in comb_cols_names){
   for (j in funs){
     renaming <- 'paste(.[, i], j, sep = "_")'
@@ -127,6 +123,5 @@ for (i in comb_cols_names){
 
 return(df)
 
-=======
->>>>>>> 5251c899d0538247d8e93c96fe71b37d1ac1ef9b
-#}
+
+}
