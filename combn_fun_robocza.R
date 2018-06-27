@@ -13,7 +13,7 @@
 
 count_events <- function(x, id, event_cols, date0, event_date, intervals = c(30, 60, 90, 180)){
 
-require(tidyverse)
+require(tidyverse, lubridate)
   
 comb_cols_names <- list()
 comb_cols <- list()
@@ -55,7 +55,7 @@ k <-1
 
 #### roundind dates ####
 
-x$Data0_floor <- lubridate::floor_date(x[, date0], unit = "day")
+x$Data0 <- lubridate::floor_date(x[, date0], unit = "day")  # zastanowic sie nad fukcja z base R
 x$evv_EventDate <- lubridate::floor_date(x[, event_date], unit = "day")
 
 #### creating interval's start date for each interval ####
@@ -64,7 +64,7 @@ interval_lenght <- c()
 
   for (i in seq_along(intervals)) {
     interval_lenght[i] <- paste0("D", intervals[i])
-    interval_start <- x$Data0_floor - lubridate::days(intervals[i])
+    interval_start <- x$Data0 - intervals[i]
     x <- cbind(x, interval_start)
     colnames(x)[colnames(x)=="interval_start"] <- interval_lenght[i]
   }
@@ -122,6 +122,5 @@ for (i in comb_cols_names){
 }
 
 return(df)
-
 
 }
