@@ -1,15 +1,15 @@
 
 # library(tidyverse)
-# load("./data/raw_data.Rdata")
+load("./data/raw_data.Rdata")
 # 
-# x <- raw_data[raw_data$RodzajScore=="PierwszaZewn",]
+x <- raw_data[raw_data$RodzajScore=="PierwszaZewn",]
 # 
 # 
-# date0 <- "Data0"
-# event_date <- "evv_EventDate"
-# event_cols <- c("evt_Code", "evs_Code", "evi_Code", "evr_Code")
-# id <- "cli_ID"
-# intervals <- c(1, 7,180, 360)
+date0 <- "Data0"
+event_date <- "evv_EventDate"
+event_cols <- c("evt_Code", "evs_Code", "evi_Code", "evr_Code")
+id <- "cli_ID"
+intervals <- c(1, 7,180, 360)
 
 count_events <- function(x, id, event_cols, date0, event_date, intervals = c(30, 60, 90, 180)){
 
@@ -89,7 +89,7 @@ all <- list()
                     mutate_(.dots = set_names(renaming, i)) %>%
                     group_by_(id, i) %>%
                     summarise_(.dots = setNames(count_interval, count_name))
-            df <- union(df, z)
+            df <- dplyr::union(df, z)
         }
     all[[i]] <- df
   }
