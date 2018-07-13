@@ -1,6 +1,4 @@
 
-<<<<<<< HEAD
-=======
 # library(tidyverse)
 # load("./data/raw_data.Rdata")
 # 
@@ -13,7 +11,6 @@
 # id <- "cli_ID"
 # intervals <- c(1, 7,180, 360)
 
->>>>>>> 370e38fca8559e6eabd8cec56a96e0752bfa23ae
 count_events <- function(x, id, event_cols, date0, event_date, intervals = c(30, 60, 90, 180)){
 
 require(tidyverse, lubridate)
@@ -107,14 +104,6 @@ names(df)[names(df)=="id"] <- id
       df <- left_join(df, tmp, by = id)
   }
 
-<<<<<<< HEAD
-  keep_unique <- function(x){
-    tmp <- sapply(x, function(x){length(unique(x))>1})
-    names(tmp[tmp==TRUE])
-  }
-
-  return(df[,keep_unique(df)])
-=======
 funs <- c("max", "min")
 
 for (i in comb_cols_names){
@@ -133,6 +122,5 @@ for (i in comb_cols_names){
 }
 
 return(df)
->>>>>>> 370e38fca8559e6eabd8cec56a96e0752bfa23ae
 
 }
