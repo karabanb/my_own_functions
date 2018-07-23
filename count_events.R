@@ -100,7 +100,7 @@ for (i in comb_cols_names){
     z <- x %>%
       mutate_(.dots = setNames(renaming, i)) %>%
       group_by_(id, i) %>%
-      summarise_at(vars(event_date, date0),funs(min)) %>%
+      summarise_at(vars(event_date, date0), funs_(j)) %>%
       rename_(.dots = setNames(i, "code")) %>%
       mutate_(.dots = setNames(paste0("as.numeric(difftime(",date0,",",event_date,",units = \"days\"))"), "N")) %>%
       select_(id, "code", "N") %>%
